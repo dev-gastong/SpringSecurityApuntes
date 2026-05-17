@@ -40,7 +40,7 @@ Proyecto de prueba para conocimientos basicos en Spring Security
 
 ---
 
-##SecurityFilterChain: **Cadena de Filtros de Seguridad**
+## SecurityFilterChain: **Cadena de Filtros de Seguridad**
 
 La cadena de filtros de seguridad es un conjunto ordenado de filtros de Java que interceptan cada HTTP Request que entra al servidor antes de que llegue a los controladores. Su trabajo es decidir si la petición tiene permitido pasar o si debe ser rechazada inmediatamente.
 
