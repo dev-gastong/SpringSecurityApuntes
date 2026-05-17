@@ -88,6 +88,13 @@ Se encarga de conectarse a cualquier BD y extraer los datos necesarios a verific
 
 ---
 
+## SecurityContextHolder
+
+Es el lugar donde se guarda el usuario que esta registrado. Una vez que el usario esta acá registrado, 
+cuando se vuelva a hacer una peticion, ya no pide autenticacion.
+
+---
+
 ## Flujo normal de Autenticacion
 
 * Request con datos (usr, pass) 
@@ -100,6 +107,9 @@ Se encarga de conectarse a cualquier BD y extraer los datos necesarios a verific
 * -> Si todo sale correcto el provider le dice al manager que el usuario se encuentra en la bd 
 * -> El manager devuelve la response al DelegatingFilterProxy 
 * -> FIlterProxy registra al usuario el SecurityContextHolder.
+
+* /-> En caso de que el usuario no este registrado o surga un error:
+* -> El AuthenticationManager se lo comunica al DelegatinFilterProxy y este deniega el acceso en el response.
 
 
 
