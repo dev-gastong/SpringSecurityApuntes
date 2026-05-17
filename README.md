@@ -90,7 +90,16 @@ Se encarga de conectarse a cualquier BD y extraer los datos necesarios a verific
 
 ## Flujo normal de Autenticacion
 
-* Request con datos (usr, pass) -> Request pasa por cada filtro de SecurityFIlterChain -> Entra en juego AuthenticationManager una vez que pasa los filtros -> El Manager consulta al provider si el usr se encuentra la BD y la pass es correcta -> El provider envia esta info al UserDetailService para que consulte la BD y le devuelva los datos -> UserDetailService le envia el usuario al provider -> El provider verifica si el usuario coincide validando la contraseña con el password encoder -> Si todo sale correcto el provider le dice al manager que el usuario se encuentra en la bd -> El manager devuelve la response al DelegatingFilterProxy -> FIlterProxy registra al usuario el SecurityContextHolder
+* Request con datos (usr, pass) 
+* -> Request pasa por cada filtro de SecurityFIlterChain 
+* -> Entra en juego AuthenticationManager una vez que pasa los filtros 
+* -> El Manager consulta al provider si el usr se encuentra la BD y la pass es correcta 
+* -> El provider envia esta info al UserDetailService para que consulte la BD y le devuelva los datos 
+* -> UserDetailService le envia el usuario al provider 
+* -> El provider verifica si el usuario coincide validando la contraseña con el password encoder 
+* -> Si todo sale correcto el provider le dice al manager que el usuario se encuentra en la bd 
+* -> El manager devuelve la response al DelegatingFilterProxy 
+* -> FIlterProxy registra al usuario el SecurityContextHolder.
 
 
 
