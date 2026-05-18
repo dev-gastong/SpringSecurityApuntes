@@ -1,18 +1,18 @@
 package com.SpringSecurity.Curso.dto;
 
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-
-    private String email;
-    private String password;
-
+public class AuthResponse {
+    private String token;
+    private String username;
+    private String message;
 }

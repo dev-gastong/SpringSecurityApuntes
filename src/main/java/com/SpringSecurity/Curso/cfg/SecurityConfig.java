@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS
                 ))
 
-                /*
+
                  .authorizeHttpRequests( http -> {
 
                     // Configurar los endpoints publicos
@@ -57,7 +57,7 @@ public class SecurityConfig {
                     http.anyRequest().denyAll();
 
                 } )
-                */
+
 
                 .build();
     }
