@@ -1,9 +1,7 @@
 package com.SpringSecurity.Curso.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -12,16 +10,28 @@ public class TestAuthController {
 
 
 
-    @GetMapping("/hello")
-    @PreAuthorize("permitAll()")
-    public String hello(){
-        return "Hello World";
+    @GetMapping("/get")
+    @PreAuthorize("hasAuthority('READ')")
+    public String helloGet(){
+        return "Hello World - GET";
     }
 
-    @GetMapping("/hello-secured")
-    @PreAuthorize("hasAuthority('CREATE')") // == http.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAnyAuthority("CREATE");
-    public String helloSecured(){
-        return "Hello World Secured";
+    @PostMapping("/post")
+    @PreAuthorize("hasAuthority('CREATE')")
+    public String helloPost(){
+        return "Hello World - POST";
+    }
+
+    @PutMapping("/put")
+    @PreAuthorize("hasAuthority('UPDATE')")
+    public String helloPut(){
+        return "Hello World - PUT";
+    }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('DELETE')")
+    public String helloDelete(){
+        return "Hello World - DELETE";
     }
 
 

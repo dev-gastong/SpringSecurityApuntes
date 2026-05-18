@@ -1,5 +1,6 @@
 package com.SpringSecurity.Curso.cfg;
 
+import com.SpringSecurity.Curso.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -48,14 +50,14 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/auth/hello").permitAll();
 
                     // Configurar los endpoints privados
-                    http.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAnyAuthority("CREATE");
+
+                    http.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAuthority("CREATE");
 
                     // Configurar el resto de endpoints - NO ESPECIFICADO
                     http.anyRequest().denyAll();
 
                 } )
-                *
-                * */
+                */
 
                 .build();
     }
@@ -66,40 +68,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider () {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService());
+    public AuthenticationProvider authenticationProvider (UserDetailServiceImpl userDetailService) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
 
     @Bean
-    public UserDetailsService userDetailsService () {
-
-        List<UserDetails> userDetailsList = new ArrayList<>();
-
-        userDetailsList.add(User.withUsername("tongas")
-                .password("1234")
-                .roles("ADMIN")
-                .authorities("READ", "CREATE")
-                .build());
-
-        userDetailsList.add(User.withUsername("notongas")
-                .password("1234")
-                .roles("CLIENTE")
-                .authorities("READ")
-                .build());
-
-
-
-        return new InMemoryUserDetailsManager(userDetailsList);
-
-    }
-
-
-    @Bean
     public PasswordEncoder passwordEncoder () {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
 
